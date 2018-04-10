@@ -55,26 +55,19 @@
 
 <div class="row">
 	<div class="col-xs-18 col-md-12">
-		@(Html.Kendo().Grid<TelerikGridFormattingIssue.Models.OrderViewModel>()
-				.Name("grid")
-				.Columns(columns =>
-				{
-					columns.Bound(p => p.OrderID).Filterable(false);
-					columns.Bound(p => p.Freight);
-					columns.Bound(p => p.OrderDate).Format("{0:MM/dd/yyyy}");
-					columns.Bound(p => p.ShipName);
-					columns.Bound(p => p.ShipCity);
-				})
-				.Pageable()
-				.Sortable()
-				.Scrollable()
-				.Filterable()
-				.HtmlAttributes(new { style = "height:550px;" })
-				.DataSource(dataSource => dataSource
-					.Ajax()
-					.PageSize(20)
-					.Read(read => read.Action("Orders_Read", "Grid"))
-				)
-		)
+        <kendo-grid name="grid" style="height:550px;">
+            <columns>
+                <column field="OrderID"/>
+                <column field="Freight"/>
+                <column field="OrderDate" format="{0:MM/dd/yyyy}"/>
+                <column field="ShipName"/>
+                <column field="ShipCity"/>
+            </columns>
+            <datasource type="DataSourceTagHelperType.Ajax">
+                <transport>
+                    <read url="@Url.Action("Orders_Read", "Grid")" />
+                </transport>
+            </datasource>
+        </kendo-grid>
 	</div>
 </div>
